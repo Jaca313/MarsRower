@@ -1,10 +1,7 @@
-
-
-#include <iostream>
-
 #include "GameSystem.h"
 
-void main() {
+int main() {
 	GameSystem Game;
 	Game.Run();
+	return 0;
 }

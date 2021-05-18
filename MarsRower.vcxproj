@@ -89,15 +89,18 @@
     <ClCompile Include="glad.c" />
     <ClCompile Include="src\MarsRower.cpp" />
     <ClCompile Include="src\Source.cpp" />
-    <ClCompile Include="State.cpp" />
+    <ClCompile Include="src\State.cpp" />
+    <ClCompile Include="src\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Config\Window.ini" />
     <None Include="FragmentShader.frag" />
     <None Include="VertexShader.vert" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameSystem.h" />
-    <ClInclude Include="State.h" />
+    <ClInclude Include="src\State.h" />
+    <ClInclude Include="src\Timer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

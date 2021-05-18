@@ -1,10 +1,24 @@
 #pragma once
+#include <fstream>
+#include <string>
+#include <stack>
+#include <iostream>
+
+#include "State.h"
+#include "Timer.h"
+
 class GameSystem
 {
 public:
 	/**
+	 * Destructor
+	 * TODO: CLeanup
+	 */
+	~GameSystem();
+
+	/**
 	 * Encapsulated Mars Rover Experience :)
-	 *  
+	 *  TODO:Create Window etc.?
 	 */
 	GameSystem();
 
@@ -15,34 +29,56 @@ public:
 	void Run();
 private:
 	/**
-	 * Player Input/etc.
-	 * 
+	 * Loads basic settings about the window from window.ini
 	 */
-	void input();
+	void LoadSettings();
 
 	/**
-	 * Deals with events
-	 * 
+	 * Window Title
 	 */
-	void updateEvents();
+	std::wstring m_sWinName;
 
 	/**
-	 * Updates GameState
-	 * 
+	 * Window Width
 	 */
-	void update();
+	int m_iWinWidth = 1280;
 
 	/**
-	 * Rendering
-	 * 
+	 * Window Height
 	 */
-	void render();
+	int m_iWinHeight = 720;
 
 	/**
-	 * Displays
-	 * 
+	 * Stack with all initialized States
 	 */
-	void display();
+	std::stack<State*> m_executionStack;
 
+	/**
+	 * Removes the top State from stack while letting it shutdown
+	 */
+	void PopState();
+
+	/**
+	 * Lets a State push a new State
+	 */
+	void PushState(States requestedState);
+
+	/**
+	 * Main Program Loop
+	 */
+	void MainLoop();
+
+	/**
+	 * Closes the Program
+	 */
+	void ExitGame();
+
+	////////////////
+	/// TimeKeeping
+	
+	Timer m_Clock; 
+	float m_fTime = 1/60.f;
+	
 };
+
 
