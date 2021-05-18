@@ -1,5 +1,54 @@
 #include "GameSystem.h"
 
+void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
+	// make sure the viewport matches the new window dimensions; note that width and 
+	// height will be significantly larger than specified on retina displays.
+	glViewport(0, 0, width, height);
+}
+
+void GameSystem::initGLFW()
+{
+	//glfw: initialize and configure
+	//------------------------------
+	int l_majorContext = 4;
+	int l_minorContext = 0;
+	glfwInit();
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, l_majorContext);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, l_minorContext);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+	std::cout << "REQUESTED::OPENGL::VERSION(" << l_majorContext << "."<< l_minorContext << ")" << std::endl;
+
+	// glfw window creation
+	// --------------------
+	char* windowTitle = new char[m_sWinName.length()];
+	wcstombs(windowTitle, m_sWinName.c_str(), m_sWinName.length());
+
+
+	window = glfwCreateWindow(m_iWinWidth, m_iWinHeight, windowTitle, NULL, NULL);
+	if (window == NULL)
+	{
+		std::cout << "Failed to create GLFW window" << std::endl;
+		glfwTerminate();
+		exit(-1);
+	}
+	glfwMakeContextCurrent(window);
+	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+
+	// glad: load all OpenGL function pointers
+	// ---------------------------------------
+	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+	{
+		std::cout << "Failed to initialize GLAD" << std::endl;
+		exit(-1);
+	}
+
+	// configure global opengl state
+	// -----------------------------
+	glEnable(GL_DEPTH_TEST);
+
+}
+
 GameSystem::~GameSystem()
 {
 	//Exit from Stack in order (saving data if need be)
@@ -12,6 +61,7 @@ GameSystem::GameSystem()
 {
 	LoadSettings();
 
+	initGLFW();
 
 }
 
@@ -67,7 +117,7 @@ void GameSystem::PushState(States requestedState)
 void GameSystem::MainLoop()
 {
 	//Main App Loop
-	while (/*window is open and*/ !m_executionStack.empty()) {
+	while (!glfwWindowShouldClose(window) && !m_executionStack.empty()) {
 
 		//if we resume a state that has been paused run some actions before resuming
 		if (m_executionStack.top()->getResumeState())m_executionStack.top()->resumeState();
