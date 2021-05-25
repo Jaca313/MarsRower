@@ -33,15 +33,27 @@
     <ClCompile Include="src\glad.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\State_Game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ResourceManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Mesh.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Model.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="VertexShader.vert">
-      <Filter>Source Files</Filter>
-    </None>
-    <None Include="FragmentShader.frag">
-      <Filter>Source Files</Filter>
-    </None>
     <None Include="Config\Window.ini" />
+    <None Include="shaders\DefaultFragment.frag" />
+    <None Include="shaders\DefaultVertex.vert" />
+    <None Include="shaders\Cube.frag" />
+    <None Include="shaders\Cube.vert" />
+    <None Include="shaders\ModelLoading.frag" />
+    <None Include="shaders\ModelLoading.vert" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameSystem.h">
@@ -57,6 +69,24 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\stb_image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\State_Game.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OpenGLHelper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ResourceManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Mesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Model.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

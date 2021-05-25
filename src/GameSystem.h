@@ -5,8 +5,7 @@
 #include <iostream>
 #include <stdlib.h>
 
-#include <glad/glad.h>
-#include <GLFW/include/glfw3.h>
+
 #include "stb_image.h"
 
 #include <glm/glm.hpp>
@@ -14,12 +13,12 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include "State.h"
+#include "State_Game.h"
+
 #include "Timer.h"
 
-/**
- * Callback when resizing of the window is done
- */
-void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+
+#include "OpenGLHelper.h"
 
 class GameSystem
 {
@@ -92,6 +91,13 @@ private:
 	 * Closes the Program
 	 */
 	void ExitGame();
+
+	/**
+	 * Swap Buffers and deal with polling
+	 * 
+	 */
+	void DisplayAndPoll();
+
 
 	////////////////
 	/// TimeKeeping

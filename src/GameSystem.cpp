@@ -1,10 +1,12 @@
 #include "GameSystem.h"
 
+
 void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
 	// make sure the viewport matches the new window dimensions; note that width and 
 	// height will be significantly larger than specified on retina displays.
 	glViewport(0, 0, width, height);
 }
+
 
 void GameSystem::initGLFW()
 {
@@ -21,8 +23,8 @@ void GameSystem::initGLFW()
 
 	// glfw window creation
 	// --------------------
-	char* windowTitle = new char[m_sWinName.length()];
-	wcstombs(windowTitle, m_sWinName.c_str(), m_sWinName.length());
+	char* windowTitle = new char[m_sWinName.length() + 1];
+	wcstombs(windowTitle, m_sWinName.c_str(), m_sWinName.length() + 1);
 
 
 	window = glfwCreateWindow(m_iWinWidth, m_iWinHeight, windowTitle, NULL, NULL);
@@ -68,7 +70,7 @@ GameSystem::GameSystem()
 void GameSystem::Run()
 {
 	//TODO:FIX STATE
-	//PushState(States::Gameplay);
+	PushState(States::Gameplay);
 	MainLoop();
 }
 
@@ -104,7 +106,7 @@ void GameSystem::PushState(States requestedState)
 	//Push state that is requested by another State
 	switch (requestedState) {
 	case States::Gameplay:
-		///m_executionStack.push(new Gamessssss)
+		m_executionStack.push(new State_Game(window));
 		break;
 	case States::Menu:
 		///m_executionStack.push(new Gamessssss)
@@ -118,19 +120,20 @@ void GameSystem::MainLoop()
 {
 	//Main App Loop
 	while (!glfwWindowShouldClose(window) && !m_executionStack.empty()) {
-
 		//if we resume a state that has been paused run some actions before resuming
 		if (m_executionStack.top()->getResumeState())m_executionStack.top()->resumeState();
 
 		m_executionStack.top()->eventLoop();//Resolve events
 		m_executionStack.top()->input(m_fTime);//Resolve Input
 		m_executionStack.top()->update(m_fTime);//Update State
-		m_executionStack.top()->draw();//Render State
+		m_executionStack.top()->draw(m_fTime);//Render State
 
 		//TODO:LEGACY
 		////Display
 		//m_window->draw(sf::Sprite(m_screenBuffer.getTexture()), &Resources.m_sFlipScreen);//Draw ScreenBuffer to Window
 		//m_window->display();//Display Window
+		DisplayAndPoll();
+
 
 		//Timing
 		m_fTime = m_Clock.Count();//Get Frame Time
@@ -152,4 +155,13 @@ void GameSystem::MainLoop()
 void GameSystem::ExitGame()
 {
 	//TODO: Properly exit the window
+	glfwTerminate();
+}
+
+void GameSystem::DisplayAndPoll()
+{
+	// glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
+	// -------------------------------------------------------------------------------
+	glfwSwapBuffers(window);
+	glfwPollEvents();
 }

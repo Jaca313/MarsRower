@@ -46,7 +46,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>A:\Visual Studio Biblioteki\GLFW\include;A:\Visual Studio Biblioteki\GLAD\include;$(IncludePath)</IncludePath>
-    <LibraryPath>A:\Visual Studio Biblioteki\GLFW\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>A:\Visual Studio Biblioteki\assimp\lib;A:\Visual Studio Biblioteki\GLFW\lib;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\intermediates\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
@@ -62,11 +62,12 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>A:\Visual Studio Biblioteki;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;assimp-vc142-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -87,22 +88,36 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Model.cpp" />
+    <ClCompile Include="src\Mesh.cpp" />
+    <ClCompile Include="src\ResourceManager.cpp" />
     <ClCompile Include="src\glad.c" />
     <ClCompile Include="src\GameSystem.cpp" />
     <ClCompile Include="src\MarsRower.cpp" />
     <ClCompile Include="src\State.cpp" />
+    <ClCompile Include="src\State_Game.cpp" />
     <ClCompile Include="src\stb_image.cpp" />
     <ClCompile Include="src\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Config\Window.ini" />
-    <None Include="FragmentShader.frag" />
-    <None Include="VertexShader.vert" />
+    <None Include="shaders\Cube.frag" />
+    <None Include="shaders\Cube.vert" />
+    <None Include="shaders\DefaultFragment.frag" />
+    <None Include="shaders\DefaultVertex.vert" />
+    <None Include="shaders\ModelLoading.frag" />
+    <None Include="shaders\ModelLoading.vert" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Camera.h" />
+    <ClInclude Include="src\Model.h" />
+    <ClInclude Include="src\Mesh.h" />
+    <ClInclude Include="src\ResourceManager.h" />
     <ClInclude Include="src\GameSystem.h" />
+    <ClInclude Include="src\OpenGLHelper.h" />
     <ClInclude Include="src\Shader.h" />
     <ClInclude Include="src\State.h" />
+    <ClInclude Include="src\State_Game.h" />
     <ClInclude Include="src\stb_image.h" />
     <ClInclude Include="src\Timer.h" />
   </ItemGroup>

@@ -1,4 +1,8 @@
 #pragma once
+#include "OpenGLHelper.h"
+#include "Shader.h"
+#include "ResourceManager.h"
+
 /**
  * All of the Valid State IDs
  */
@@ -17,9 +21,9 @@ public:
 	 * Virtual Destructor to be overwritten
 	 * 
 	 */
-	virtual ~State() = 0;
+	virtual ~State() = default;
 
-private:
+protected:
 	/**
 	 * ID of the State
 	 */
@@ -50,7 +54,7 @@ public:
 	 * Draws frame from state
 	 * 
 	 */
-	virtual void draw() = 0;
+	virtual void draw(float fTime) = 0;
 
 	/////////////////////////////////////
 	/**
@@ -87,7 +91,7 @@ public:
 	 */
 	virtual void endState() = 0;
 
-private:
+protected:
 	/**
 	 * Is the state ready to quit
 	 */
